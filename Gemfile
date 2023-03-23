@@ -5,6 +5,5 @@ group :development, :test do
   gem 'simplecov', require: false
   gem 'json'
   gem 'simplecov_json_formatter'
-  gem 'simplecov-lcov'
   gem 'builder'
 end

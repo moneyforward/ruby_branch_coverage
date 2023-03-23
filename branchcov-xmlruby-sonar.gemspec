@@ -1,8 +1,8 @@
 Gem::Specification.new do |s|
     s.name        = 'branchcov-xmlruby-sonar'
-    s.version     = '0.0.5'
+    s.version     = '0.0.1'
     s.summary     = 'Branch Coverage Ruby!'
-    s.description = 'A program to convert json to xml test coverage foramt gem'
+    s.description = 'A program to convert json to xml test coverage format gem'
     s.authors     = ['Suganya']
     s.email       = ['kuppusamy.suganya@moneyforward.co.jp']
     s.files       = ['lib/ruby_branch_cover.rb']

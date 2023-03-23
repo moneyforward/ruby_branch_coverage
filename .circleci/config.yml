@@ -16,10 +16,15 @@ common: &common
           bundle check || bundle install --jobs 4
           bundle clean
 
+     - save_cache:
+      key: bundle-v1-{{ checksum "branchcov-xmlruby-sonar.gemspec" }}
+      paths:
+        - .bundle
+
     - run:
         name: Run tests
         command: |
-          cd ~/workspace
+          mkdir coverage
           bundle exec rspec
 
 jobs:

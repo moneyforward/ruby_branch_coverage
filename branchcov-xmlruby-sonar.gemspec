@@ -7,5 +7,5 @@ Gem::Specification.new do |s|
     s.email       = ['kuppusamy.suganya@moneyforward.co.jp']
     s.files       = ['lib/ruby_branch_cover.rb']
     s.homepage    =
-      'https://rubygems.pkg.github.com/moneyforward/branchcov-xmlruby-sonar'
+      'https://rubygems.pkg.github.com/moneyforwardvietnam/branchcov-xmlruby-sonar'
   end

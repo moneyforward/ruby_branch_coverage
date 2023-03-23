@@ -23,13 +23,13 @@ common: &common
           bundle exec rspec
 
 jobs:
-  test_2_7:
+  test_3_2:
     docker:
-      - image: circleci/ruby:2.7
+      - image: cimg/ruby:3.2
     <<: *common
 
 workflows:
   version: 2
   build-and-test:
     jobs:
-      - test_2_7
+      - test_3_2

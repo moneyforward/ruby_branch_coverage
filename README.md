@@ -1,0 +1,1 @@
+# branchcov-xmlruby-sonar

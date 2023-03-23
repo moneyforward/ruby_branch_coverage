@@ -7,7 +7,8 @@ common: &common
   steps:
     - checkout
     - restore_cache:
-        keys: bundle-v1-{{ checksum "branchcov-xmlruby-sonar.gemspec" }}
+        keys:
+          - bundle-v1-{{ checksum "branchcov-xmlruby-sonar.gemspec" }}
 
     - run:
         name: Build gem dependencies

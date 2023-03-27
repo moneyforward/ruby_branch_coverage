@@ -1,0 +1,43 @@
+version: 2.1
+
+common: &common
+  working_directory: ~/workspace
+  parallelism: 1
+  resource_class: small
+  steps:
+    - checkout
+    - restore_cache:
+        keys:
+          - bundle-v1-{{ checksum "branchcov-xmlruby-sonar.gemspec" }}
+
+    - run:
+        name: Build gem dependencies
+        command: |
+          gem install bundler
+          bundle lock
+          bundle config --local path '.bundle'
+          bundle check || bundle install --jobs 4
+          bundle clean
+
+    - save_cache:
+        key: bundle-v1-{{ checksum "branchcov-xmlruby-sonar.gemspec" }}
+        paths:
+          - .bundle
+
+    - run:
+        name: Run tests
+        command: |
+          mkdir coverage
+          bundle exec rspec
+
+jobs:
+  test_3_2:
+    docker:
+      - image: cimg/ruby:3.2
+    <<: *common
+
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - test_3_2

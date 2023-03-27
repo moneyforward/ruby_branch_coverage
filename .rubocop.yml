@@ -1,0 +1,14 @@
+AllCops:
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - 'bin/*'
+    - 'script/**/*'
+    - 'vendor/**/*'
+    - 'spec/**/*'
+    - 'tmp/**/*'
+    - '**/Rakefile'
+    - '**/Gemfile'
+    - '*.gemspec'
+    - 'node_modules/**/*'
+  CacheRootDirectory: tmp/cache/rubocop

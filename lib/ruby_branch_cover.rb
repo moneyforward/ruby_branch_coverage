@@ -53,7 +53,6 @@ class RubyBranchCover
         return final_key
     end
 
-
     def read_json_and_getxml(filepath, parallelism_count)
         file = File.read(filepath)
         data_hash = JSON.parse(file)
@@ -105,6 +104,5 @@ class RubyBranchCover
             File.write("coverage/branch-coverage.xml", xml.target!)
             return false
         end
-
     end
 end

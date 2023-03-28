@@ -1,3 +1,7 @@
+require:
+  - rubocop-rspec
+  - rubocop-thread_safety
+
 AllCops:
   NewCops: enable
   SuggestExtensions: false

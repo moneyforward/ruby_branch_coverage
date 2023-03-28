@@ -47,11 +47,10 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/workspace
-      - run: cat /env-vars-for-coverall >> $BASH_ENV
       - run:
           name: Run upload coveralls
           command: |
-            curl -k https://coveralls.io/webhook?repo_token=$COVERALLS_REPO_TOKEN -d "payload[build_num]=$CUSTOM_ENV_FOR_COVERALL&payload[status]=done"
+            curl -k https://coveralls.io/webhook?repo_token=$COVERALLS_REPO_TOKEN -d "payload[build_num]=$CIRCLE_BUILD_NUM&payload[status]=done"
 
 workflows:
   version: 2

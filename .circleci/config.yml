@@ -43,7 +43,7 @@ jobs:
   upload_coveralls:
     working_directory: ~/repo
     docker:
-      - image: cimg/ruby:3.1.4
+      - image: cimg/ruby:3.2
     steps:
       - attach_workspace:
           at: ~/repo

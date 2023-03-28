@@ -41,12 +41,12 @@ jobs:
     <<: *common
 
   upload_coveralls:
-    working_directory: ~/repo
+    working_directory: ~/workspace
     docker:
       - image: cimg/ruby:3.2
     steps:
       - attach_workspace:
-          at: ~/repo
+          at: ~/workspace
       - run: cat /env-vars-for-coverall >> $BASH_ENV
       - run:
           name: Run upload coveralls

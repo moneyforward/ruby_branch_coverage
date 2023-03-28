@@ -11,7 +11,7 @@ RSpec.describe RubyBranchCover do
     lineArray.push(lineToCoverElement2)
     lineArray.push(lineToCoverElement3)
     c1format = RubyBranchCover.new
-    index = c1format.check_for_duplicate_line 34, lineArray
+    index = c1format.send :check_for_duplicate_line, 34, lineArray
     expect(index).to eq 1
   end
 
@@ -24,7 +24,7 @@ RSpec.describe RubyBranchCover do
     lineArray.push(lineToCoverElement2)
     lineArray.push(lineToCoverElement3)
     c1format = RubyBranchCover.new
-    index = c1format.check_for_duplicate_line 55, lineArray
+    index = c1format.send :check_for_duplicate_line, 55, lineArray
     expect(index).to eq -1
   end
 
@@ -35,7 +35,7 @@ RSpec.describe RubyBranchCover do
       "[:else, 3, 10, 12, 12, 15]": 0
     }
     c1format = RubyBranchCover.new
-    not_covered = c1format.find_notcovered_branches conditionmap
+    not_covered = c1format.send :find_notcovered_branches, conditionmap
     expect(not_covered).to eq 2
   end
 

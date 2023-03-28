@@ -19,6 +19,17 @@ require "simplecov_json_formatter"
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'simplecov'
+require "simplecov-lcov"
+require "coveralls"
+
+SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new([
+  SimpleCov::Formatter::LcovFormatter.config do
+    |c|
+    c.report_with_single_file = true
+  c.single_report_path = "coverage/lcov.info"
+end,
+  Coveralls::SimpleCov::Formatter
+])
 
 SimpleCov.start 'rails' do
   enable_coverage :branch

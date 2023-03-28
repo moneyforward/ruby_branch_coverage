@@ -25,6 +25,10 @@ common: &common
           - .bundle
 
     - run:
+        name: Create env share
+        command: echo "export CUSTOM_ENV_FOR_COVERALL=$CIRCLE_BUILD_NUM" >> env-vars-for-coverall
+
+    - run:
         name: Run tests
         command: |
           mkdir coverage
@@ -36,8 +40,24 @@ jobs:
       - image: cimg/ruby:3.2
     <<: *common
 
+  upload_coveralls:
+    working_directory: ~/repo
+    docker:
+      - image: cimg/ruby:3.1.4
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run: cat /env-vars-for-coverall >> $BASH_ENV
+      - run:
+          name: Run upload coveralls
+          command: |
+            curl -k https://coveralls.io/webhook?repo_token=$COVERALLS_REPO_TOKEN -d "payload[build_num]=$CUSTOM_ENV_FOR_COVERALL&payload[status]=done"
+
 workflows:
   version: 2
   build-and-test:
     jobs:
       - test_3_2
+      - upload_coveralls:
+          requires:
+            - test_3_2

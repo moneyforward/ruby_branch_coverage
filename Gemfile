@@ -12,5 +12,4 @@ group :development, :test do
   gem 'rubocop-thread_safety'
   gem 'brakeman'
   gem 'coveralls_reborn', '~> 0.27.0', require: false
-  gem 'simplecov-lcov', '~> 0.8.0', require: false
 end

@@ -25,17 +25,10 @@ common: &common
           - .bundle
 
     - run:
-        name: Print CIRCLE_BUILD_NUM
-        command: echo $CIRCLE_BUILD_NUM
-
-    - run:
         name: Run tests
         command: |
           mkdir coverage
           bundle exec rspec
-
-    - store_artifacts:
-        path: coverage
 
 jobs:
   test_3_2:

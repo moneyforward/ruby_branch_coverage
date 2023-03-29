@@ -19,6 +19,9 @@ require "simplecov_json_formatter"
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'simplecov'
+require "coveralls"
+
+SimpleCov.formatter = Coveralls::SimpleCov::Formatter
 
 SimpleCov.start 'rails' do
   enable_coverage :branch

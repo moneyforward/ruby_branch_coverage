@@ -11,4 +11,5 @@ group :development, :test do
   gem 'rubocop-rspec', require: false
   gem 'rubocop-thread_safety'
   gem 'brakeman'
+  gem 'coveralls_reborn', '~> 0.27.0', require: false
 end

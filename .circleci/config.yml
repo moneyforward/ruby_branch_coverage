@@ -25,8 +25,8 @@ common: &common
           - .bundle
 
     - run:
-        name: Create env share
-        command: echo "export CUSTOM_ENV_FOR_COVERALL=$CIRCLE_BUILD_NUM" >> env-vars-for-coverall
+        name: Print CIRCLE_BUILD_NUM
+        command: echo $CIRCLE_BUILD_NUM
 
     - run:
         name: Run tests

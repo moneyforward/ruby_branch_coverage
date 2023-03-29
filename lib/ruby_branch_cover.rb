@@ -27,9 +27,8 @@ class RubyBranchCover
     final_key = ''
     count.times do |index|
       final_key += key_to_append
-      final_key += ',' if index < (count - 1)
+      final_key += ', ' if index < (count - 1)
     end
-
     final_key
   end
 

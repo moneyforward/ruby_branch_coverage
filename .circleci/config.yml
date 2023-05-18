@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
-  github-deployment: moneyforward/github-deployment@1.2.0
-
 common: &common
   working_directory: ~/workspace
   parallelism: 1
@@ -50,6 +47,35 @@ jobs:
           name: Run upload coveralls
           command: |
             curl -k https://coveralls.io/webhook?repo_token=$COVERALLS_REPO_TOKEN -d "payload[build_num]=$CIRCLE_BUILD_NUM&payload[status]=done"
+  publish:
+    docker:
+      - image: cimg/ruby:3.2
+    steps:
+      - checkout
+      - run:
+          name: Tag with the gem version
+          command: |
+            GEM_VERSION=$(ruby -e "require 'rubygems'; gemspec = Dir.glob(\"./**/*.gemspec\").first; puts Gem::Specification::load(gemspec).version")
+            TAG="v$GEM_VERSION"
+            curl \
+              -sSf \
+              -X POST \
+              -H "Accept: application/vnd.github.v3+json" \
+              -u machisuke:"${GITHUB_DEVELOPER_REPO_FULL_WRITE_PACKAGES}" \
+              https://api.github.com/repos/moneyforward/branchcov-xmlruby-sonar/git/tags \
+              -d '{"tag":"'"${TAG}"'","message":"'"${TAG}"'","object":"'"${CIRCLE_SHA1}"'","type":"commit"}'
+      - run:
+          name: Set up github private registry key
+          command: |
+            mkdir -p ~/.gem
+            touch ~/.gem/credentials
+            chmod 600 ~/.gem/credentials
+            echo ":github: Bearer ${GITHUB_DEVELOPER_REPO_FULL_WRITE_PACKAGES}" >> ~/.gem/credentials
+      - run:
+          name: build and push gem
+          command: |
+            gem build *.gemspec
+            gem push --key github --host https://rubygems.pkg.github.com/moneyforward ./*.gem
 
 workflows:
   version: 2
@@ -59,3 +85,8 @@ workflows:
       - upload_coveralls:
           requires:
             - test_3_2
+      - publish:
+          filters:
+            branches:
+              only:
+                - main

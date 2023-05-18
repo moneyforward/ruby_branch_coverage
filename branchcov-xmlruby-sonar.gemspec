@@ -8,4 +8,6 @@ Gem::Specification.new do |s|
     s.files       = ['lib/ruby_branch_cover.rb']
     s.homepage    =
       'https://rubygems.pkg.github.com/moneyforwardvietnam/branchcov-xmlruby-sonar'
+
+    s.metadata["allowed_push_host"] = 'https://rubygems.pkg.github.com'
   end

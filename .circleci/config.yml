@@ -61,7 +61,7 @@ jobs:
               -sSf \
               -X POST \
               -H "Accept: application/vnd.github.v3+json" \
-              -u machisuke:"${GITHUB_DEVELOPER_REPO_FULL_WRITE_PACKAGES}" \
+              -u _authToken:"${GITHUB_DEVELOPER_REPO_FULL_WRITE_PACKAGES}" \
               https://api.github.com/repos/moneyforward/branchcov-xmlruby-sonar/git/tags \
               -d '{"tag":"'"${TAG}"'","message":"'"${TAG}"'","object":"'"${CIRCLE_SHA1}"'","type":"commit"}'
       - run:

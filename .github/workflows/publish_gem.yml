@@ -1,0 +1,30 @@
+name: Publish gem to github private registry
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - lib/ruby_branch_cover.rb
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v2
+      - name: Tag with the gem version
+        run: |
+          GEM_VERSION=$(ruby -e "require 'rubygems'; gemspec = Dir.glob(\"./**/*.gemspec\").first; puts Gem::Specification::load(gemspec).version")
+          TAG="v$GEM_VERSION"
+          git tag $TAG && git push origin $TAG
+      - name: Set up github private registry key
+        run: |
+          mkdir -p ~/.gem
+          touch ~/.gem/credentials
+          chmod 600 ~/.gem/credentials
+          echo ":github: Bearer ${{ secrets.GITHUB_TOKEN }}" >> ~/.gem/credentials
+      - name: build and push gem
+        run: |
+          gem build *.gemspec
+          gem push --key github --host https://rubygems.pkg.github.com/moneyforward ./*.gem

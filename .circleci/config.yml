@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  github-deployment: moneyforward/github-deployment@1.2.0
+
 common: &common
   working_directory: ~/workspace
   parallelism: 1

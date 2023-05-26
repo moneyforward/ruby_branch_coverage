@@ -18,17 +18,23 @@ describe 'simplecov:report_coverage' do
     FileUtils.cd('../../')
   end
 
-  context 'when separate' do
+  context 'when tests are executed in sections' do
     it 'creates a .resultset.json file' do
-      `bundle exec rspec spec/requests && cp -R coverage/.resultset.json coverage_results/.resultset-0.json && bundle exec rspec spec/views && cp -R coverage/.resultset.json coverage_results/.resultset-1.json && bundle exec rails simplecov:report_coverage[2]`
+      `bundle exec rspec spec/requests`
+      FileUtils.cp_r('coverage/.resultset.json', 'coverage_results/.resultset-0.json')
+      `bundle exec rspec spec/views`
+      FileUtils.cp_r('coverage/.resultset.json', 'coverage_results/.resultset-1.json')
+      Rake::Task['simplecov:report_coverage'].invoke('2')
       expect(File.exist?('spec/dummy/coverage/.resultset.json')).to be_truthy
       expect(File.exist?('spec/dummy/coverage/branch-coverage.xml')).to be_truthy
     end
   end
 
-  context 'not separate' do
+  context 'when tests are not executed in sections' do
     it 'creates a .resultset.json file' do
-      `bundle exec rspec && cp -R coverage/.resultset.json coverage_results/.resultset-0.json && bundle exec rails simplecov:report_coverage`
+      `bundle exec rspec`
+      FileUtils.cp_r('coverage/.resultset.json', 'coverage_results/.resultset-0.json')
+      Rake::Task['simplecov:report_coverage'].invoke
       expect(File.exist?('spec/dummy/coverage/.resultset.json')).to be_truthy
       expect(File.exist?('spec/dummy/coverage/branch-coverage.xml')).to be_truthy
     end

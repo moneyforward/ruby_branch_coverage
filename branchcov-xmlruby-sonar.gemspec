@@ -1,6 +1,8 @@
+require_relative 'lib/ruby_branch_cover/version'
+
 Gem::Specification.new do |s|
     s.name        = 'branchcov-xmlruby-sonar'
-    s.version     = '0.0.1'
+    s.version     = RubyBranchCover::Version
     s.summary     = 'Branch Coverage Ruby!'
     s.description = 'A program to convert json to xml test coverage format gem'
     s.authors     = ['Suganya']
@@ -12,4 +14,4 @@ Gem::Specification.new do |s|
     s.metadata["allowed_push_host"] = 'https://rubygems.pkg.github.com'
     s.add_development_dependency "rspec-rails"
     s.add_dependency "rails", "~> 6.1.7", ">= 6.1.7.3"
-    end
+end

@@ -1,4 +1,8 @@
 # frozen_string_literal: true
-class BranchcovXmlrubySonar::Engine < ::Rails::Engine
-  isolate_namespace BranchcovXmlrubySonar
+
+module BranchcovXmlrubySonar
+  # This engine is for dummy app
+  class Engine < Rails::Engine
+    isolate_namespace BranchcovXmlrubySonar
+  end
 end

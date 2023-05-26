@@ -26,9 +26,9 @@ namespace :simplecov do
     end
     SimpleCov.collate Dir['./coverage_results/.resultset*.json'], 'rails' do
       formatter SimpleCov::Formatter::MultiFormatter.new([
-        SimpleCov::Formatter::HTMLFormatter,
-        SimpleCov::Formatter::JSONFormatter
-      ])
+                                                           SimpleCov::Formatter::HTMLFormatter,
+                                                           SimpleCov::Formatter::JSONFormatter
+                                                         ])
     end
     ruby_branch = RubyBranchCover.new
     ruby_branch.read_json_and_getxml('coverage/.resultset.json', args[:parallelism].to_i)

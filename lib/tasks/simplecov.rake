@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-# simplecov がtest環境のときのみ読み込まれるため、
-# このRakeタスクもtestのときのみ読み込む
-require 'ruby_branch_cover'
-require 'simplecov'
-require 'simplecov_json_formatter'
 namespace :simplecov do
   desc 'Merge coverage results'
   task :report_coverage, [:parallelism] => [:environment] do |_t, args|

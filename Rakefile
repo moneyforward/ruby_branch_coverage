@@ -11,10 +11,9 @@ require "rake/testtask"
 
 Rake.add_rakelib 'lib/tasks'
 
-Rake::TestTask.new(:test) do |t|
-  t.libs << 'test'
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = false
-end
+# add rspec rake task
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new(:spec)
+task :default => :spec
 
 task default: :test

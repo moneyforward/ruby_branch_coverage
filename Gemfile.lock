@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    branchcov-xmlruby-sonar (0.0.1)
+    branchcov-xmlruby-sonar (0.1.0)
       rails (~> 6.1.7, >= 6.1.7.3)
 
 GEM

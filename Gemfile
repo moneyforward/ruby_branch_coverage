@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+gemspec
+
 group :development, :test do
   gem 'rspec'      # testing framework
   gem 'simplecov', require: false
@@ -12,4 +14,8 @@ group :development, :test do
   gem 'rubocop-thread_safety'
   gem 'brakeman'
   gem 'coveralls_reborn', '~> 0.27.0', require: false
+end
+
+group :development do
+  gem 'sqlite3'
 end

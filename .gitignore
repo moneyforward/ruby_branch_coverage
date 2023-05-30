@@ -6,10 +6,22 @@
 /pkg/
 /spec/reports/
 /spec/examples.txt
+/spec/dummy/coverage/
+/spec/dummy/coverage_results/
+/spec/dummy/db/*.sqlite3
+/spec/dummy/public/packs-test/
+/spec/dummy/tmp/
+/spec/dummy/log/
+/spec/dummy/lib/
+/spec/dummy/node_modules/
+/spec/dummy/storage/
+/spec/dummy/vendor/
+/spec/dummy/.rspec
 /test/tmp/
 /test/version_tmp/
 /tmp/
-
+/.idea/
+Gemfile.lock
 # Used by dotenv library to load environment variables.
 # .env
 

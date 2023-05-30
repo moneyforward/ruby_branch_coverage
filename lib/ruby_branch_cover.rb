@@ -2,7 +2,7 @@
 
 require 'json'
 require 'builder'
-
+require_relative 'ruby_branch_cover/version'
 # Convert JSON to XML for branch coverage
 class RubyBranchCover
   def read_json_and_getxml(filepath, parallelism_count)

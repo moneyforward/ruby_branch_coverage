@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'simplecov'
+require 'simplecov_json_formatter'
+
 namespace :simplecov do
   desc 'Merge coverage results'
   task :report_coverage, [:parallelism] => [:environment] do |_t, args|

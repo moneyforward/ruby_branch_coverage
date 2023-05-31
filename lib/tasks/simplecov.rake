@@ -6,6 +6,22 @@ require 'simplecov_json_formatter'
 namespace :simplecov do
   desc 'Merge coverage results'
   task :report_coverage, [:parallelism] => [:environment] do |_t, args|
+    SimpleCov.start 'rails' do
+      enable_coverage :branch
+
+      add_filter '/spec/'
+      add_filter '/config/'
+      add_filter '/db/'
+      add_filter '/vendor/'
+
+      add_group 'Decorators', 'app/decorators'
+      add_group 'Forms', 'app/forms'
+      add_group 'Services', 'app/services'
+      add_group 'ViewObjects', 'app/view_objects'
+      add_group 'Batches', 'app/batches'
+
+      merge_timeout 3600
+    end
     SimpleCov.collate Dir['./coverage_results/.resultset*.json'], 'rails' do
       formatter SimpleCov::Formatter::MultiFormatter.new([
                                                            SimpleCov::Formatter::HTMLFormatter,

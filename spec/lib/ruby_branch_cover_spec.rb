@@ -62,4 +62,23 @@ RSpec.describe RubyBranchCover do
     output = c1format.read_json_and_getxml("spec/lib/upload/.resultset3.json", 1)
     expect(output).to eq(false)
   end
+
+  # when run parallelism with multiple processors
+  it "input json file (parallelism = 2 & processors = 3) and generate xml file" do
+    c1format = RubyBranchCover.new
+    output = c1format.read_json_and_getxml("spec/lib/upload/.resultset-multiple-processors2-3.json", 2, 3)
+    expect(output).to eq(true)
+  end
+
+  it "input json file (parallelism = 3 & processors = 2) and generate xml file" do
+    c1format = RubyBranchCover.new
+    output = c1format.read_json_and_getxml("spec/lib/upload/.resultset-multiple-processors3-2.json", 3, 2)
+    expect(output).to eq(true)
+  end
+
+  it "input json file (parallelism = 4 & processors = 4) and generate xml file" do
+    c1format = RubyBranchCover.new
+    output = c1format.read_json_and_getxml("spec/lib/upload/.resultset-multiple-processors4-4.json", 4, 4)
+    expect(output).to eq(true)
+  end
 end

@@ -8,7 +8,7 @@ common: &common
     - checkout
     - restore_cache:
         keys:
-          - bundle-v1-{{ checksum "branchcov-xmlruby-sonar.gemspec" }}
+          - bundle-v1-{{ checksum "ruby_branch_coverage.gemspec" }}
 
     - run:
         name: Build gem dependencies
@@ -20,7 +20,7 @@ common: &common
           bundle clean
 
     - save_cache:
-        key: bundle-v1-{{ checksum "branchcov-xmlruby-sonar.gemspec" }}
+        key: bundle-v1-{{ checksum "ruby_branch_coverage.gemspec" }}
         paths:
           - .bundle
 

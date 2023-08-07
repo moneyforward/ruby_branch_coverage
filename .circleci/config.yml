@@ -6,9 +6,9 @@ common: &common
   resource_class: small
   steps:
     - checkout
-    # - restore_cache:
-    #     keys:
-    #       - bundle-v1-{{ checksum "ruby_branch_coverage.gemspec" }}
+    - restore_cache:
+        keys:
+          - bundle-v1-{{ checksum "ruby_branch_coverage.gemspec" }}
 
     - run:
         name: Build gem dependencies

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class RubyBranchCover
+class RubyBranchCoverage
   VERSION = '0.1.3'
 end

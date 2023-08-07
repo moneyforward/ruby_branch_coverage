@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - lib/ruby_branch_cover/version.rb
+      - lib/ruby_branch_coverage/version.rb
 
 jobs:
   build:

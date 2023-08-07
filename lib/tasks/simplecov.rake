@@ -28,7 +28,7 @@ namespace :simplecov do
                                                            SimpleCov::Formatter::JSONFormatter
                                                          ])
     end
-    ruby_branch = RubyBranchCover.new
+    ruby_branch = RubyBranchCoverage.new
     ruby_branch.read_json_and_getxml('coverage/.resultset.json', args[:parallelism].to_i)
   end
 end

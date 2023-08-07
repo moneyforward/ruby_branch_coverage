@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 # rubocop:disable Style/Documentation
-class RubyBranchCover
+class RubyBranchCoverage
   class Engine < ::Rails::Engine
-    isolate_namespace RubyBranchCover
+    isolate_namespace RubyBranchCoverage
   end
 end
 # rubocop:enable Style/Documentation

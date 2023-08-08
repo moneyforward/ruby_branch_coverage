@@ -18,7 +18,7 @@ require "sprockets/railtie"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-require "ruby_branch_cover"
+require "ruby_branch_coverage"
 
 module Spec
   class Application < Rails::Application

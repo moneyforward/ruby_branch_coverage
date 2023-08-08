@@ -1,5 +1,5 @@
-require "spec_helper"
-require "ruby_branch_cover"
+require 'spec_helper'
+require 'ruby_branch_coverage'
 
 RSpec.describe RubyBranchCoverage do
   it "check line already present in list of lineToCover element" do

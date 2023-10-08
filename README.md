@@ -34,3 +34,6 @@ end
     mkdir coverage_results
     cp -R coverage/.resultset.json coverage_results/.resultset-${CIRCLE_NODE_INDEX}.json || exit 0
 ```
+
+### Kibela page
+Check [this](https://moneyforward.kibe.la/notes/265405#circleci-using-gem) document for more configuration

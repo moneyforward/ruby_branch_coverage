@@ -14,4 +14,5 @@ Gem::Specification.new do |s|
     s.metadata["allowed_push_host"] = 'https://rubygems.pkg.github.com'
     s.add_development_dependency "rspec-rails"
     s.add_dependency "rails"
+    s.add_dependency 'simplecov'
 end

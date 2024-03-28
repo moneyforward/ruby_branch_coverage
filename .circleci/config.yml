@@ -29,12 +29,38 @@ common: &common
         command: |
           mkdir coverage
           bundle exec rspec
+    - run:
+        name: Run rubocop
+        command: |
+          bundle exec rubocop --parallel --format json --out coverage/rubocop.json
 
 jobs:
   test_3_2:
     docker:
       - image: cimg/ruby:3.2
     <<: *common
+  sonarqube_analysis:
+    docker:
+      - image: sonarsource/sonar-scanner-cli:latest
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Check rubocop file existed
+          command: |
+            ls -la coverage/rubocop.json
+
+      - run:
+          name: Perform sonarqube analysis
+          command: |
+            # execute sonarqube scanner, send analysis result to the server \
+            sonar-scanner \
+              -Dsonar.host.url=${SONAR_HOST_URL} 
+              -Dsonr.projectKey=ruby_branch_coverage \
+              -Dsonar.sources=. \
+              -Dsonar.exclusions=**/*_spec.rb
+              -Dsonar.branch.name=${CIRCLE_BRANCH}; \
 
   upload_coveralls:
     working_directory: ~/workspace
@@ -53,6 +79,13 @@ workflows:
   build-and-test:
     jobs:
       - test_3_2
+      - sonarqube_analysis:
+          requires:
+            - test_3_2
+          filters:
+            branches:
+              only:
+                - test_rubocop
       - upload_coveralls:
           requires:
             - test_3_2

@@ -32,7 +32,7 @@ common: &common
     - run:
         name: Run rubocop
         command: |
-          bundle exec rubocop --parallel --format json --fail-level refactor --out coverage/rubocop.json
+          bundle exec rubocop --debug --parallel --format json --fail-level refactor --out coverage/rubocop.json
 
 jobs:
   test_3_2:

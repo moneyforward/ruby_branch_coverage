@@ -32,7 +32,7 @@ common: &common
     - run:
         name: Run rubocop
         command: |
-          bundle exec rubocop --debug --parallel --format json --fail-level refactor --out coverage/rubocop.json
+          bundle exec rubocop --debug --force-exclusio --parallel --format json --fail-level refactor --out coverage/rubocop.json
           RESULT="$?"
           # check result of rsync db's
           if [ "$RESULT" != "1" ]; then

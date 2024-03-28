@@ -17,9 +17,357 @@ AllCops:
     - 'node_modules/**/*'
   CacheRootDirectory: tmp/cache/rubocop
 
+# privateはdefと同じインデント
+Layout/AccessModifierIndentation:
+  EnforcedStyle: indent
+
+# 複数行メソッド呼び出しの引数のインデントは自由
+Layout/ArgumentAlignment:
+  Enabled: true
+
+# 配列要素の複数行はインデントを合わせる
+Layout/ArrayAlignment:
+  Enabled: true
+
+# 代入の右辺が複数行になる場合はインデントが必要
+Layout/AssignmentIndentation:
+  Enabled: true
+
+# ブロックのendのインデント位置
+Layout/BlockAlignment:
+  EnforcedStyleAlignWith: either
+
+# ブロックのendの前は改行が必要
+Layout/BlockEndNewline:
+  Enabled: true
+
+# 代入を伴うcase文のインデントはcaseに合わせる
+Layout/CaseIndentation:
+  EnforcedStyle: case
+
+# クラスの定義順は自由
+Layout/ClassStructure:
+  Enabled: false
+
+# ヒアドキュメントのインデントは合わせる
+Layout/ClosingHeredocIndentation:
+  Enabled: true
+
+# メソッドの閉じタグは何かに合わせる必要がある
+Layout/ClosingParenthesisIndentation:
+  Enabled: true
+
+# コメントのインデントは合わせる必要がある
+Layout/CommentIndentation:
+  Enabled: true
+
+# 条件節がif/while/untilと違う行にあるのは許容しない
+Layout/ConditionPosition:
+  Enabled: true
+
+# privateをdefの前につける時のレイアウト。そもそも使わない
+Layout/DefEndAlignment:
+  Enabled: true
+
+# メソッドチェイン時のドットが前か後か。
+# 統一した方がいい気がするけど自由
+Layout/DotPosition:
+  Enabled: false
+
+# elseのインデント
+Layout/ElseAlignment:
+  Enabled: true
+
+#
+# 空コメントは禁止。区切りOK、装飾ならOK
+#
+Layout/EmptyComment:
+  AllowBorderComment: true
+  AllowMarginComment: true
+
+# ガード行の後には１行開ける。何か悪さしそう
+Layout/EmptyLineAfterGuardClause:
+  Enabled: true
+
+# マジックコメントの後ろに１行開ける
+Layout/EmptyLineAfterMagicComment:
+  Enabled: true
+
+# メソッド定義同士の間は１行開ける
+# １行メソッドでも不可
+Layout/EmptyLineBetweenDefs:
+  AllowAdjacentOneLineDefs: false
+
+# ２行以上の空行禁止
+Layout/EmptyLines:
+  Enabled: true
+
+# privateの前後には１行開ける
+Layout/EmptyLinesAroundAccessModifier:
+  EnforcedStyle: around
+
+# 複数行引数の途中で空行を入れない
+Layout/EmptyLinesAroundArguments:
+  Enabled: true
+
+# attr_*宣言と他のコードの前後には1行開ける
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+# begin endの中に空行を入れるのは自由
+Layout/EmptyLinesAroundBeginBody:
+  Enabled: false
+
+# blockの中に空行を入れるのは自由
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+# classの中に空行を入れるのは自由
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+
+# begin rescue の中に空行を入れるのは自由
+Layout/EmptyLinesAroundExceptionHandlingKeywords:
+  Enabled: false
+
+# def endの内側に空行は不要
+Layout/EmptyLinesAroundMethodBody:
+  Enabled: true
+
+# module endの内側に空行を入れるのは自由
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+# endの位置は自由
+Layout/EndAlignment:
+  Enabled: false
+
+# 改行はLF固定
+Layout/EndOfLine:
+  EnforcedStyle: lf
+
+# 余分なスペースの禁止
+# 他の行と揃えるためならOK
+# コメントの前の空白ならOK
+Layout/ExtraSpacing:
+  AllowForAlignment: true
+  AllowBeforeTrailingComments: true
+
+# メソッドの最初の引数のインデント方法
+# 統一するの難しそう
+Layout/FirstArgumentIndentation:
+  Enabled: false
+
+# arrayの最初の引数のインデント位置
+# 統一するの難しそう
+Layout/FirstArrayElementIndentation:
+  Enabled: false
+
+# arrayの最初の引数の前に改行が必要かどうか：自由
+Layout/FirstArrayElementLineBreak:
+  Enabled: false
+
+Layout/FirstHashElementIndentation:
+  Enabled: false
+
+Layout/FirstHashElementLineBreak:
+  Enabled: false
+
+Layout/FirstMethodArgumentLineBreak:
+  Enabled: false
+
+Layout/FirstMethodParameterLineBreak:
+  Enabled: false
+
+# メソッド引数中に改行が必要な時点でそもそもおかしい
+Layout/FirstParameterIndentation:
+  Enabled: false
+
+# hashの揃え方、揃ってればなんでも
+Layout/HashAlignment:
+  Enabled: false
+
+Layout/HeredocArgumentClosingParenthesis:
+  Enabled: false
+
+# ヒアドキュメントはインデントしよう
+Layout/HeredocIndentation:
+  Enabled: true
+
+# private を境にインデントするルールにはしない
+Layout/IndentationConsistency:
+  EnforcedStyle: normal
+
+# インデントはスペース２個
+Layout/IndentationWidth:
+  Width: 2
+  AllowedPatterns: []
+
 # いきなり最初からインデントするのは禁止
 Layout/InitialIndentation:
   Enabled: true
+
+# コメント行のシャープの後ろにはスペース１個開ける
+Layout/LeadingCommentSpace:
+  AllowDoxygenCommentStyle: false
+  AllowGemfileRubyComment: false
+
 # ファイルの先頭に空行を入れるのは禁止
 Layout/LeadingEmptyLines:
   Enabled: true
+
+# １行の最大文字数: 節度を守りましょう
+Layout/LineLength:
+  Enabled: false
+
+# 複数行のarrayのカッコの書き方
+# 問題ありそうなら削除
+Layout/MultilineArrayBraceLayout:
+  EnforcedStyle: symmetrical
+
+# 複数行のarrayは要素１個につき１改行：不要
+Layout/MultilineArrayLineBreaks:
+  Enabled: false
+
+# 複数行の要素代入には最初に改行が必要
+# 個人的には好きだが、強制するほどではない
+Layout/MultilineAssignmentLayout:
+  Enabled: false
+
+# 複数行のブロック定義はdo endじゃなくて{}を使う：どっちでも
+Layout/MultilineBlockLayout:
+  Enabled: false
+
+# 複数行のhashのカッコの書き方
+# 問題ありそうなら削除
+Layout/MultilineHashBraceLayout:
+  EnforcedStyle: symmetrical
+
+Layout/MultilineHashKeyLineBreaks:
+  Enabled: false
+
+Layout/MultilineMethodArgumentLineBreaks:
+  Enabled: false
+
+Layout/MultilineMethodCallBraceLayout:
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+
+Layout/MultilineMethodDefinitionBraceLayout:
+  Enabled: false
+
+Layout/MultilineOperationIndentation:
+  Enabled: false
+
+Layout/ParameterAlignment:
+  Enabled: false
+
+# rescueはbeginとインデントを揃える
+Layout/RescueEnsureAlignment:
+  Enabled: true
+
+Layout/SpaceAfterColon:
+  Enabled: true
+
+Layout/SpaceAfterComma:
+  Enabled: true
+
+Layout/SpaceAfterMethodName:
+  Enabled: true
+
+Layout/SpaceAfterNot:
+  Enabled: true
+
+Layout/SpaceAfterSemicolon:
+  Enabled: true
+
+# ブロック引数の前後にスペースはいれない
+Layout/SpaceAroundBlockParameters:
+  EnforcedStyleInsidePipes: no_space
+
+# デフォルト引数のイコールの前後にスペースを入れる
+Layout/SpaceAroundEqualsInParameterDefault:
+  EnforcedStyle: space
+
+# do,if,whileなどの前後にスペースを入れる
+Layout/SpaceAroundKeyword:
+  Enabled: true
+
+# ::や.と定数名やメソッド名の間にスペースを入れない
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+# 演算子の前後にスペースを入れる、**も同じ
+Layout/SpaceAroundOperators:
+  AllowForAlignment: true
+  EnforcedStyleForExponentOperator: space
+
+# ブロックの括弧の前にはスペースを入れる
+Layout/SpaceBeforeBlockBraces:
+  EnforcedStyle: space
+
+# コンマの前にはスペースを入れない
+Layout/SpaceBeforeComma:
+  Enabled: true
+
+# コメントの前にはスペースを入れる
+Layout/SpaceBeforeComment:
+  Enabled: true
+
+
+# メソッドと引数の間にはスペースを入れる
+Layout/SpaceBeforeFirstArg:
+  Enabled: true
+
+  # セミコロンの前にはスペースを入れない
+Layout/SpaceBeforeSemicolon:
+  Enabled: true
+
+Layout/SpaceInLambdaLiteral:
+  EnforcedStyle: require_no_space
+
+Layout/SpaceInsideArrayLiteralBrackets:
+  EnforcedStyle: no_space
+  EnforcedStyleForEmptyBrackets: no_space
+
+Layout/SpaceInsideArrayPercentLiteral:
+  Enabled: true
+
+Layout/SpaceInsideBlockBraces:
+  EnforcedStyle: space
+  EnforcedStyleForEmptyBraces: space
+  SpaceBeforeBlockParameters: false
+
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+  EnforcedStyleForEmptyBraces: no_space
+
+Layout/SpaceInsideParens:
+  EnforcedStyle: no_space
+
+# パーセント記法の内側にスペースがいるかどうか: どっちでも
+Layout/SpaceInsidePercentLiteralDelimiters:
+  Enabled: false
+
+Layout/SpaceInsideRangeLiteral:
+  Enabled: true
+
+Layout/SpaceInsideReferenceBrackets:
+  EnforcedStyle: no_space
+  EnforcedStyleForEmptyBrackets: no_space
+
+Layout/SpaceInsideStringInterpolation:
+  EnforcedStyle: no_space
+
+# タブ禁止
+Layout/IndentationStyle:
+  Enabled: true
+
+# final_newline警告は出さないように
+Layout/TrailingEmptyLines:
+  EnforcedStyle: final_newline
+
+Layout/TrailingWhitespace:
+  AllowInHeredoc: false

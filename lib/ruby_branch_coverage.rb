@@ -153,9 +153,13 @@ class RubyBranchCoverage
     end
   end
 
-  private
-
   def user_params
-    aa
+    puts "example"
+    aaaaaaa
+  end
+
+  def method_with_error_offense
+    # This line intentionally raises an error
+    undefined_method_call
   end
 end

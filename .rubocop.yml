@@ -23,3 +23,5 @@ Layout/InitialIndentation:
 # ファイルの先頭に空行を入れるのは禁止
 Layout/LeadingEmptyLines:
   Enabled: true
+Style/ImplicitRuntimeError:
+  Enabled: true

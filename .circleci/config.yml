@@ -33,7 +33,7 @@ common: &common
         name: Run rubocop
         command: |
           set +o pipefail
-          bundle exec rubocop --format json --out coverage/rubocop.json || true
+          bundle exec rubocop --debug --format json --out coverage/rubocop.json || true
           RESULT="$?"
           if [ "$RESULT" != "1" ]; then
             exit 0
@@ -73,6 +73,7 @@ jobs:
               -Dsonar.host.url=${SONAR_HOST_URL} \
               -Dsonar.sources=. \
               -Dsonar.exclusions=**/*_spec.rb \
+              -Dsonar.ruby.rubocop.reportPaths=coverage/rubocop.json \
               -Dsonar.branch.name=${CIRCLE_BRANCH}; \
 
   upload_coveralls:

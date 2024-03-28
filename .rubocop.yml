@@ -16,11 +16,10 @@ AllCops:
     - '*.gemspec'
     - 'node_modules/**/*'
   CacheRootDirectory: tmp/cache/rubocop
+
+# いきなり最初からインデントするのは禁止
 Layout/InitialIndentation:
   Enabled: true
-  Exclude:
-    - 'spec/**/*'
-  IndentationWidth: 2
 # ファイルの先頭に空行を入れるのは禁止
 Layout/LeadingEmptyLines:
   Enabled: true

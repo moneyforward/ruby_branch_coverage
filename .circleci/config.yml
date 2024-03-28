@@ -33,11 +33,9 @@ common: &common
         name: Run rubocop
         command: |
           set +o pipefail
-          bundle exec rubocop --format json --out coverage/rubocop.json
+          bundle exec rubocop --debug --format progress json --out coverage/rubocop.json
           RESULT="$?"
-          # check result of rsync db's
           if [ "$RESULT" != "1" ]; then
-            echo -e "rsync exit Code:" $RESULT "\nFAILED to rsync backups"
             exit 0
           fi
 

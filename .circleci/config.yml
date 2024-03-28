@@ -32,6 +32,7 @@ common: &common
     - run:
         name: Run rubocop
         command: |
+          set +o pipefail
           bundle exec rubocop --format json --out coverage/rubocop.json
           RESULT="$?"
           # check result of rsync db's

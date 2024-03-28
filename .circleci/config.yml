@@ -38,6 +38,9 @@ common: &common
           if [ "$RESULT" != "1" ]; then
             exit 0
           fi
+    - store_artifacts:
+          path: coverage/rubocop.json
+
     - persist_to_workspace:
           root: ./
           paths:

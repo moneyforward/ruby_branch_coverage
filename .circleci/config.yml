@@ -38,6 +38,10 @@ common: &common
           if [ "$RESULT" != "1" ]; then
             exit 0
           fi
+    - persist_to_workspace:
+          root: ./
+          paths:
+            - coverage/rubocop.json
 
 jobs:
   test_3_2:

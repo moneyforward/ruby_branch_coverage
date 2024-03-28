@@ -16,7 +16,6 @@ AllCops:
     - '*.gemspec'
     - 'node_modules/**/*'
   CacheRootDirectory: tmp/cache/rubocop
-
 # privateはdefと同じインデント
 Layout/AccessModifierIndentation:
   EnforcedStyle: indent

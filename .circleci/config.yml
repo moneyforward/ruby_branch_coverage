@@ -33,7 +33,7 @@ common: &common
         name: Run rubocop
         command: |
           set +o pipefail
-          bundle exec rubocop --debug --format progress json --out coverage/rubocop.json || true
+          bundle exec rubocop --format json --out coverage/rubocop.json || true
           RESULT="$?"
           if [ "$RESULT" != "1" ]; then
             exit 0

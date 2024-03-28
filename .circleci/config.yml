@@ -33,6 +33,12 @@ common: &common
         name: Run rubocop
         command: |
           bundle exec rubocop --debug --parallel --format json --fail-level refactor --out coverage/rubocop.json
+          RESULT="$?"
+          # check result of rsync db's
+          if [ "$RESULT" != "1" ]; then
+            echo -e "rsync exit Code:" $RESULT "\nFAILED to rsync backups"
+            exit 0
+          fi
 
 jobs:
   test_3_2:

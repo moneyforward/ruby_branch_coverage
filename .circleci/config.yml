@@ -65,11 +65,11 @@ jobs:
           command: |
             # execute sonarqube scanner, send analysis result to the server \
             sonar-scanner \
-              -Dsonar.host.url=${SONAR_HOST_URL} 
               -Dsonar.projectKey=ruby_branch_coverage \
               -Dsonar.projectName=tax_return_api \
+              -Dsonar.host.url=${SONAR_HOST_URL} \
               -Dsonar.sources=. \
-              -Dsonar.exclusions=**/*_spec.rb
+              -Dsonar.exclusions=**/*_spec.rb \
               -Dsonar.branch.name=${CIRCLE_BRANCH}; \
 
   upload_coveralls:

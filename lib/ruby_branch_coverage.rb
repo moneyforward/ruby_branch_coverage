@@ -7,6 +7,12 @@ require_relative 'ruby_branch_coverage/engine'
 # Convert JSON to XML for branch coverage
 class RubyBranchCoverage
   def read_json_and_getxml(filepath, parallelism_count, parallelism_processors = 0)
+    person = {
+      "name":"John",
+      "age": 30,
+      "password":"New York"
+    }
+    puts person[:password] 
     file = File.read(filepath)
     data_hash = JSON.parse(file)
     file_elements = []
@@ -136,5 +142,20 @@ class RubyBranchCoverage
       'branchesToCover' => element[:branchesToCover],
       'coveredBranches' => element[:coveredBranches]
     }
+  end
+
+  def create
+    @user = User.new(user_params)
+    if @user.save
+      redirect_to @user
+    else
+      render 'new'
+    end
+  end
+
+  private
+
+  def user_params
+    aa
   end
 end

@@ -32,19 +32,24 @@ common: &common
     - run:
         name: Run rubocop
         command: |
-          set +o pipefail
           bundle exec rubocop --debug --format json --out coverage/rubocop.json || true
-          RESULT="$?"
-          if [ "$RESULT" != "1" ]; then
-            exit 0
-          fi
+
+    - run:
+        name: Run Brakeman
+        command: |
+          bundle exec brakeman --format json --out coverage/brakeman.json || true
+    
+
     - store_artifacts:
-          path: coverage/rubocop.json
+          path: |
+            coverage/rubocop.json
+            coverage/brakeman.json
 
     - persist_to_workspace:
           root: ./
           paths:
             - coverage/rubocop.json
+            - coverage/brakeman.json
 
 jobs:
   test_3_2:
@@ -62,6 +67,7 @@ jobs:
           name: Check rubocop file existed
           command: |
             ls -la coverage/rubocop.json
+            ls -la coverage/brakeman.json
 
       - run:
           name: Perform sonarqube analysis

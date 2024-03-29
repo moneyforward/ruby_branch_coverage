@@ -23,16 +23,18 @@ common: &common
         key: bundle-v1-{{ checksum "ruby_branch_coverage.gemspec" }}
         paths:
           - .bundle
+    
+    - run:
+        name: Run rubocop
+        command: |
+          bundle exec rubocop --debug --parallel --format json --out coverage/rubocop.json || true
 
     - run:
         name: Run tests
         command: |
           mkdir coverage
           bundle exec rspec
-    - run:
-        name: Run rubocop
-        command: |
-          bundle exec rubocop --debug --format json --out coverage/rubocop.json || true
+    
 
     - run:
         name: Run Brakeman

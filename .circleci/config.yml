@@ -42,8 +42,8 @@ common: &common
 
     - store_artifacts:
           path: |
-            coverage/rubocop.json
-            coverage/brakeman.json
+            - coverage/rubocop.json
+            - coverage/brakeman.json
 
     - persist_to_workspace:
           root: ./

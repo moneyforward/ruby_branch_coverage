@@ -32,7 +32,7 @@ common: &common
     - run:
         name: Run tests
         command: |
-          mkdir coverage
+          mkdir -p coverage
           bundle exec rspec
     
 

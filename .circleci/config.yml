@@ -37,7 +37,7 @@ common: &common
     - run:
         name: Run Brakeman
         command: |
-          bundle exec brakeman --format json --out coverage/brakeman.json || true
+          bundle exec brakeman --force --format json --out coverage/brakeman.json || true
     
 
     - store_artifacts:

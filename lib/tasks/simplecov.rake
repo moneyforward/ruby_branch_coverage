@@ -19,6 +19,10 @@ namespace :simplecov do
       add_group 'Services', 'app/services'
       add_group 'ViewObjects', 'app/view_objects'
       add_group 'Batches', 'app/batches'
+      add_group 'Models', 'app/models'
+      add_group 'Controller', 'app/controllers'
+      add_group 'GraphQL', 'app/graphql'
+      add_group 'Jobs', 'app/jobs'
 
       merge_timeout 3600
     end

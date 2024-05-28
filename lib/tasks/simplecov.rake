@@ -6,23 +6,14 @@ require 'simplecov_json_formatter'
 namespace :simplecov do
   desc 'Merge coverage results'
   task :report_coverage, [:parallelism] => [:environment] do |_t, args|
+    filters = %w[spec config db vendor]
+    groups = %w[models controllers services decorators forms view_objects batches graphql jobs]
+
     SimpleCov.start 'rails' do
       enable_coverage :branch
 
-      add_filter '/spec/'
-      add_filter '/config/'
-      add_filter '/db/'
-      add_filter '/vendor/'
-
-      add_group 'Decorators', 'app/decorators'
-      add_group 'Forms', 'app/forms'
-      add_group 'Services', 'app/services'
-      add_group 'ViewObjects', 'app/view_objects'
-      add_group 'Batches', 'app/batches'
-      add_group 'Models', 'app/models'
-      add_group 'Controller', 'app/controllers'
-      add_group 'GraphQL', 'app/graphql'
-      add_group 'Jobs', 'app/jobs'
+      filters.each { |filter| add_filter "/#{filter}/" }
+      groups.each { |group| add_group group.capitalize, "app/#{group}" }
 
       merge_timeout 3600
     end

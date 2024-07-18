@@ -75,14 +75,22 @@ jobs:
           name: Perform sonarqube analysis
           command: |
             # execute sonarqube scanner, send analysis result to the server \
-            sonar-scanner \
-              -Dsonar.projectKey=ruby_branch_coverage \
-              -Dsonar.projectName=tax_return_api \
-              -Dsonar.host.url=${SONAR_HOST_URL} \
-              -Dsonar.sources=. \
-              -Dsonar.exclusions=**/*_spec.rb \
-              -Dsonar.ruby.rubocop.reportPaths=coverage/rubocop.json \
-              -Dsonar.branch.name=${CIRCLE_BRANCH}; \
+            if [[ -n "${CI_PULL_REQUEST}" ]]; then
+                # execute sonarqube scanner, send analysis result to the server and post comment on the PR
+                sonar-scanner \
+                  -Dsonar.host.url=${SONAR_HOST_URL} \
+                  -Dsonar.pullrequest.branch=${CIRCLE_BRANCH} \
+                  -Dsonar.pullrequest.base=release \
+                  -Dsonar.pullrequest.key=${CI_PULL_REQUEST#https://github.com/moneyforward/ruby_branch_coverage/pull/}; \
+              fi
+            # sonar-scanner \
+            #   -Dsonar.projectKey=ruby_branch_coverage \
+            #   -Dsonar.projectName=tax_return_api \
+            #   -Dsonar.host.url=${SONAR_HOST_URL} \
+            #   -Dsonar.sources=. \
+            #   -Dsonar.exclusions=**/*_spec.rb \
+            #   -Dsonar.ruby.rubocop.reportPaths=coverage/rubocop.json \
+            #   -Dsonar.branch.name=${CIRCLE_BRANCH}; \
 
   upload_coveralls:
     working_directory: ~/workspace

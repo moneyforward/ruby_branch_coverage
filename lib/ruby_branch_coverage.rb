@@ -21,6 +21,7 @@ class RubyBranchCoverage
     file_elements.size.positive?
   end
 
+  
   private
 
   def find_rspec_key(parallelism, parallelism_processors)

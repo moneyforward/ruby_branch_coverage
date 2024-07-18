@@ -23,18 +23,76 @@ common: &common
         key: bundle-v1-{{ checksum "ruby_branch_coverage.gemspec" }}
         paths:
           - .bundle
+    
+    - run:
+        name: Run rubocop
+        command: |
+          bundle exec rubocop --debug --parallel --format json --out coverage/rubocop.json || true
 
     - run:
         name: Run tests
         command: |
-          mkdir coverage
+          mkdir -p coverage
           bundle exec rspec
+    
+
+    - run:
+        name: Run Brakeman
+        command: |
+          bundle exec brakeman --force --format json --out coverage/brakeman.json || true
+    
+
+    - store_artifacts:
+          path: coverage/rubocop.json
+    - store_artifacts:
+          path: coverage/brakeman.json
+
+    - persist_to_workspace:
+          root: ./
+          paths:
+            - coverage/rubocop.json
+            - coverage/brakeman.json
 
 jobs:
   test_3_2:
     docker:
       - image: cimg/ruby:3.2
     <<: *common
+  sonarqube_analysis:
+    docker:
+      - image: sonarsource/sonar-scanner-cli:latest
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Check rubocop file existed
+          command: |
+            ls -la coverage/rubocop.json
+            ls -la coverage/brakeman.json
+
+      - run:
+          name: Perform sonarqube analysis
+          command: |
+            # execute sonarqube scanner, send analysis result to the server \
+            if [[ -n "${CI_PULL_REQUEST}" ]]; then
+                # execute sonarqube scanner, send analysis result to the server and post comment on the PR
+                sonar-scanner \
+                  -Dsonar.projectKey=ruby_branch_coverage \
+                  -Dsonar.projectName=ruby_branch_coverage \
+                  -Dsonar.host.url=${SONAR_HOST_URL} \
+                  -Dsonar.pullrequest.branch=${CIRCLE_BRANCH} \
+                  -Dsonar.pullrequest.base=release \
+                  -Dsonar.pullrequest.key=${CI_PULL_REQUEST#https://github.com/moneyforward/ruby_branch_coverage/pull/}; \
+              fi
+            # sonar-scanner \
+            #   -Dsonar.projectKey=ruby_branch_coverage \
+            #   -Dsonar.projectName=tax_return_api \
+            #   -Dsonar.host.url=${SONAR_HOST_URL} \
+            #   -Dsonar.sources=. \
+            #   -Dsonar.exclusions=**/*_spec.rb \
+            #   -Dsonar.ruby.rubocop.reportPaths=coverage/rubocop.json \
+            #   -Dsonar.branch.name=${CIRCLE_BRANCH}; \
 
   upload_coveralls:
     working_directory: ~/workspace
@@ -53,6 +111,13 @@ workflows:
   build-and-test:
     jobs:
       - test_3_2
+      - sonarqube_analysis:
+          requires:
+            - test_3_2
+          filters:
+            branches:
+              only:
+                - test_rubocop
       - upload_coveralls:
           requires:
             - test_3_2

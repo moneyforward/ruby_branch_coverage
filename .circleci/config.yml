@@ -78,6 +78,8 @@ jobs:
             if [[ -n "${CI_PULL_REQUEST}" ]]; then
                 # execute sonarqube scanner, send analysis result to the server and post comment on the PR
                 sonar-scanner \
+                  -Dsonar.projectKey=ruby_branch_coverage \
+                  -Dsonar.projectName=ruby_branch_coverage \
                   -Dsonar.host.url=${SONAR_HOST_URL} \
                   -Dsonar.pullrequest.branch=${CIRCLE_BRANCH} \
                   -Dsonar.pullrequest.base=release \

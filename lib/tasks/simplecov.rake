@@ -5,7 +5,7 @@ require 'simplecov_json_formatter'
 
 namespace :simplecov do
   desc 'Merge coverage results'
-  task :report_coverage, %i[parallelism processors] => [:environment] do |_t, _args|
+  task :report_coverage, %i[parallelism processors] => [:environment] do |_t, args|
     SimpleCov.start 'rails' do
       enable_coverage :branch
 
@@ -22,6 +22,11 @@ namespace :simplecov do
 
       merge_timeout 3600
     end
+
+    if args[:parallelism] || args[:processors]
+      warn 'The argument has been deprecated. The process will continue while ignoring the argument.'
+    end
+
     SimpleCov.collate Dir['./coverage_results/.resultset*.json'], 'rails' do
       formatter SimpleCov::Formatter::MultiFormatter.new([
                                                            SimpleCov::Formatter::HTMLFormatter,

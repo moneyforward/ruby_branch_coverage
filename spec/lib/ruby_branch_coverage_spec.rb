@@ -58,6 +58,21 @@ RSpec.describe RubyBranchCoverage do
     }.to raise_error(RuntimeError, 'No coverage data found in the JSON file')
   end
 
+  context "When a certain key exists in the JSON, but 'coverage' is not present under it." do
+    it "raise error" do
+      c1format = RubyBranchCoverage.new
+      expect {
+        c1format.read_json_and_getxml("spec/lib/upload/.resultset6.json")
+      }.to raise_error(RuntimeError, 'No coverage data found in the JSON file')
+    end
+  end
+
+  it "input 'coverage' is empty and generate empty xml file" do
+    c1format = RubyBranchCoverage.new
+    output = c1format.read_json_and_getxml("spec/lib/upload/.resultset7.json")
+    expect(output).to eq(false)
+  end
+
   it "input [no branches,only lines] json file and generate xml file" do
     c1format = RubyBranchCoverage.new
     output = c1format.read_json_and_getxml("spec/lib/upload/.resultset3.json")

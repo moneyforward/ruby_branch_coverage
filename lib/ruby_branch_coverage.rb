@@ -24,7 +24,7 @@ class RubyBranchCoverage
   private
 
   def validate_including_coverage(data_hash)
-    return unless data_hash.empty? || data_hash.values.none? { |v| v.key?('coverage') }
+    return unless data_hash.empty? || data_hash.values.none? { |v| v.is_a?(Hash) && v.key?('coverage') }
 
     raise 'No coverage data found in the JSON file'
   end

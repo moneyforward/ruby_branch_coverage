@@ -5,7 +5,7 @@ require 'simplecov_json_formatter'
 
 namespace :simplecov do
   desc 'Merge coverage results'
-  task :report_coverage, %i[parallelism processors] => [:environment] do |_t, args|
+  task :report_coverage, %i[parallelism processors] => [:environment] do |_t, _args|
     SimpleCov.start 'rails' do
       enable_coverage :branch
 
@@ -29,6 +29,6 @@ namespace :simplecov do
                                                          ])
     end
     ruby_branch = RubyBranchCoverage.new
-    ruby_branch.read_json_and_getxml('coverage/.resultset.json', args[:parallelism].to_i, args[:processors].to_i)
+    ruby_branch.read_json_and_getxml('coverage/.resultset.json')
   end
 end

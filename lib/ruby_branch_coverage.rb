@@ -6,14 +6,14 @@ require_relative 'ruby_branch_coverage/version'
 require_relative 'ruby_branch_coverage/engine'
 # Convert JSON to XML for branch coverage
 class RubyBranchCoverage
-  def read_json_and_getxml(filepath, parallelism_count, parallelism_processors = 0)
+  def read_json_and_getxml(filepath)
     file = File.read(filepath)
     data_hash = JSON.parse(file)
-    file_elements = []
-    rspec_key = find_rspec_key(parallelism_count, parallelism_processors)
+    raise 'No coverage data found in the JSON file' if valid_coverage_hash?(data_hash)
 
-    unless data_hash.empty? || data_hash[rspec_key].nil? || data_hash[rspec_key]['coverage'].nil?
-      file_elements = create_file_elements(data_hash[rspec_key]['coverage'])
+    file_elements = []
+    data_hash.each do |_key, value|
+      file_elements.concat(create_file_elements(value['coverage'])) if value.key?('coverage')
     end
 
     create_xml(file_elements)
@@ -23,20 +23,8 @@ class RubyBranchCoverage
 
   private
 
-  def find_rspec_key(parallelism, parallelism_processors)
-    if parallelism_processors.positive?
-      # when parallelism is 4 and parallelism processor is 4
-      # (1/4), (1/4), (1/4), (1/4), (2/4), (2/4), (2/4), (2/4), (3/4), (3/4), (3/4), (3/4), (4/4), (4/4), (4/4), (4/4)
-      parallelism.times.map do |i|
-        parallelism_processors.times.map do |_j|
-          "(#{i + 1}/#{parallelism})"
-        end.join(', ') # (x/4), (x/4), (x/4), (x/4)
-      end.join(', ')
-    else
-      # when parallelism is 4 and parallelism processor is 0
-      # Rspec, RSpec, RSpec, RSpec
-      parallelism.times.map { |_i| 'RSpec' }.join(', ')
-    end
+  def valid_coverage_hash?(data_hash)
+    data_hash.empty? || data_hash.values.none? { |v| v.is_a?(Hash) && v.key?('coverage') }
   end
 
   def create_file_elements(coverage_block_by_key)

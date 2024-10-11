@@ -24,7 +24,7 @@ describe 'simplecov:report_coverage' do
       FileUtils.cp_r('coverage/.resultset.json', 'coverage_results/.resultset-0.json')
       `bundle exec rspec spec/views`
       FileUtils.cp_r('coverage/.resultset.json', 'coverage_results/.resultset-1.json')
-      Rake::Task['simplecov:report_coverage'].invoke('2')
+      Rake::Task['simplecov:report_coverage']
       expect(File.exist?('spec/dummy/coverage/.resultset.json')).to be_truthy
       expect(File.exist?('spec/dummy/coverage/branch-coverage.xml')).to be_truthy
     end
@@ -37,6 +37,14 @@ describe 'simplecov:report_coverage' do
       Rake::Task['simplecov:report_coverage'].invoke
       expect(File.exist?('spec/dummy/coverage/.resultset.json')).to be_truthy
       expect(File.exist?('spec/dummy/coverage/branch-coverage.xml')).to be_truthy
+    end
+  end
+
+   context 'when deprecated arguments are included' do
+    it 'warns about deprecated arguments' do
+      expect {
+        Rake::Task['simplecov:report_coverage'].invoke('2', '3')
+      }.to output("The argument has been deprecated. The process will continue while ignoring the argument.").to_stderr
     end
   end
 end

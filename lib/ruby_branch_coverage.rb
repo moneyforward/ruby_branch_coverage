@@ -9,7 +9,7 @@ class RubyBranchCoverage
   def read_json_and_getxml(filepath)
     file = File.read(filepath)
     data_hash = JSON.parse(file)
-    raise 'No coverage data found in the JSON file' if validate_including_coverage(data_hash)
+    raise 'No coverage data found in the JSON file' if valid_coverage_hash?(data_hash)
 
     file_elements = []
     data_hash.each do |_key, value|
@@ -23,7 +23,7 @@ class RubyBranchCoverage
 
   private
 
-  def validate_including_coverage(data_hash)
+  def valid_coverage_hash?(data_hash)
     data_hash.empty? || data_hash.values.none? { |v| v.is_a?(Hash) && v.key?('coverage') }
   end
 

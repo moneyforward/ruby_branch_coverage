@@ -41,14 +41,27 @@ RSpec.describe RubyBranchCoverage do
 
   it "input json file and generate xml file" do
     c1format = RubyBranchCoverage.new
-    output = c1format.read_json_and_getxml("spec/lib/upload/.resultset.json")
-    expect(output).to eq(true)
+    expect {
+      output = c1format.read_json_and_getxml("spec/lib/upload/.resultset.json", 1)
+      expect(output).to eq(true)
+    }.to output("parallelism_count and parallelism_processors as argument will deprecate.\n").to_stderr
   end
 
   it "input json file and generate xml file with more than 1 parallel testing" do
     c1format = RubyBranchCoverage.new
-    output = c1format.read_json_and_getxml("spec/lib/upload/.resultset4.json")
-    expect(output).to eq(true)
+    expect {
+      output = c1format.read_json_and_getxml("spec/lib/upload/.resultset4.json", 3)
+      expect(output).to eq(true)
+    }.to output("parallelism_count and parallelism_processors as argument will deprecate.\n").to_stderr
+
+  end
+
+  it "input empty json file and generate xml file" do
+    c1format = RubyBranchCoverage.new
+    expect {
+      output = c1format.read_json_and_getxml("spec/lib/upload/.resultset2.json", 1)
+      expect(output).to eq(false)
+    }.to output("parallelism_count and parallelism_processors as argument will deprecate.\n").to_stderr
   end
 
   it "input empty json file and raise error" do
@@ -75,26 +88,34 @@ RSpec.describe RubyBranchCoverage do
 
   it "input [no branches,only lines] json file and generate xml file" do
     c1format = RubyBranchCoverage.new
-    output = c1format.read_json_and_getxml("spec/lib/upload/.resultset3.json")
-    expect(output).to eq(false)
+    expect {
+      output = c1format.read_json_and_getxml("spec/lib/upload/.resultset3.json", 1)
+      expect(output).to eq(false)
+    }.to output("parallelism_count and parallelism_processors as argument will deprecate.\n").to_stderr
   end
 
   # when run parallelism with multiple processors
   it "input json file (parallelism = 2 & processors = 3) and generate xml file" do
     c1format = RubyBranchCoverage.new
-    output = c1format.read_json_and_getxml("spec/lib/upload/.resultset-multiple-processors2-3.json")
-    expect(output).to eq(true)
+    expect {
+      output = c1format.read_json_and_getxml("spec/lib/upload/.resultset-multiple-processors2-3.json", 2, 3)
+      expect(output).to eq(true)
+    }.to output("parallelism_count and parallelism_processors as argument will deprecate.\n").to_stderr
   end
 
   it "input json file (parallelism = 3 & processors = 2) and generate xml file" do
     c1format = RubyBranchCoverage.new
-    output = c1format.read_json_and_getxml("spec/lib/upload/.resultset-multiple-processors3-2.json")
-    expect(output).to eq(true)
+    expect {
+      output = c1format.read_json_and_getxml("spec/lib/upload/.resultset-multiple-processors3-2.json", 3, 2)
+      expect(output).to eq(true)
+    }.to output("parallelism_count and parallelism_processors as argument will deprecate.\n").to_stderr
   end
 
   it "input json file (parallelism = 4 & processors = 4) and generate xml file" do
     c1format = RubyBranchCoverage.new
-    output = c1format.read_json_and_getxml("spec/lib/upload/.resultset-multiple-processors4-4.json")
-    expect(output).to eq(true)
+    expect {
+      output = c1format.read_json_and_getxml("spec/lib/upload/.resultset-multiple-processors4-4.json", 4, 4)
+      expect(output).to eq(true)
+    }.to output("parallelism_count and parallelism_processors as argument will deprecate.\n").to_stderr
   end
 end

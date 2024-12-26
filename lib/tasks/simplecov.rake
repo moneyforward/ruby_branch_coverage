@@ -23,10 +23,6 @@ namespace :simplecov do
       merge_timeout 3600
     end
 
-    if args[:parallelism] || args[:processors]
-      warn 'The argument has been deprecated. The process will continue while ignoring the argument.'
-    end
-
     SimpleCov.collate Dir['./coverage_results/.resultset*.json'], 'rails' do
       formatter SimpleCov::Formatter::MultiFormatter.new([
                                                            SimpleCov::Formatter::HTMLFormatter,
@@ -34,6 +30,6 @@ namespace :simplecov do
                                                          ])
     end
     ruby_branch = RubyBranchCoverage.new
-    ruby_branch.read_json_and_getxml('coverage/.resultset.json')
+    ruby_branch.read_json_and_getxml('coverage/.resultset.json', args[:parallelism].to_i, args[:processors].to_i)
   end
 end

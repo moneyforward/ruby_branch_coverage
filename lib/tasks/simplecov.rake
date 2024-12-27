@@ -22,6 +22,7 @@ namespace :simplecov do
 
       merge_timeout 3600
     end
+
     SimpleCov.collate Dir['./coverage_results/.resultset*.json'], 'rails' do
       formatter SimpleCov::Formatter::MultiFormatter.new([
                                                            SimpleCov::Formatter::HTMLFormatter,

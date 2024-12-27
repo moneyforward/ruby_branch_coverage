@@ -6,22 +6,40 @@ require_relative 'ruby_branch_coverage/version'
 require_relative 'ruby_branch_coverage/engine'
 # Convert JSON to XML for branch coverage
 class RubyBranchCoverage
-  def read_json_and_getxml(filepath, parallelism_count, parallelism_processors = 0)
+  def read_json_and_getxml(filepath, parallelism_count = 0, parallelism_processors = 0)
     file = File.read(filepath)
     data_hash = JSON.parse(file)
-    file_elements = []
-    rspec_key = find_rspec_key(parallelism_count, parallelism_processors)
 
-    unless data_hash.empty? || data_hash[rspec_key].nil? || data_hash[rspec_key]['coverage'].nil?
-      file_elements = create_file_elements(data_hash[rspec_key]['coverage'])
-    end
+    file_elements = if parallelism_count != 0 || parallelism_processors != 0
+                      extract_file_elements_using_parallelism_args(data_hash, parallelism_count, parallelism_processors)
+                    else
+                      extract_file_elements(data_hash)
+                    end
 
     create_xml(file_elements)
-
     file_elements.size.positive?
   end
 
   private
+
+  def extract_file_elements_using_parallelism_args(data_hash, parallelism_count, parallelism_processors)
+    warn 'parallelism_count and parallelism_processors as argument will deprecate.'
+    rspec_key = find_rspec_key(parallelism_count, parallelism_processors)
+
+    return [] if data_hash.empty? || data_hash[rspec_key].nil? || data_hash[rspec_key]['coverage'].nil?
+
+    create_file_elements(data_hash[rspec_key]['coverage'])
+  end
+
+  def extract_file_elements(data_hash)
+    raise 'No coverage data found in the JSON file' if valid_coverage_hash?(data_hash)
+
+    file_elements = []
+    data_hash.each do |_key, value|
+      file_elements.concat(create_file_elements(value['coverage'])) if value.key?('coverage')
+    end
+    file_elements
+  end
 
   def find_rspec_key(parallelism, parallelism_processors)
     if parallelism_processors.positive?
@@ -37,6 +55,10 @@ class RubyBranchCoverage
       # Rspec, RSpec, RSpec, RSpec
       parallelism.times.map { |_i| 'RSpec' }.join(', ')
     end
+  end
+
+  def valid_coverage_hash?(data_hash)
+    data_hash.empty? || data_hash.values.none? { |v| v.is_a?(Hash) && v.key?('coverage') }
   end
 
   def create_file_elements(coverage_block_by_key)

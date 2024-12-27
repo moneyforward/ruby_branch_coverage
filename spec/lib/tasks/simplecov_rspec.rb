@@ -24,7 +24,7 @@ describe 'simplecov:report_coverage' do
       FileUtils.cp_r('coverage/.resultset.json', 'coverage_results/.resultset-0.json')
       `bundle exec rspec spec/views`
       FileUtils.cp_r('coverage/.resultset.json', 'coverage_results/.resultset-1.json')
-      Rake::Task['simplecov:report_coverage'].invoke('2')
+      Rake::Task['simplecov:report_coverage'].invoke(2)
       expect(File.exist?('spec/dummy/coverage/.resultset.json')).to be_truthy
       expect(File.exist?('spec/dummy/coverage/branch-coverage.xml')).to be_truthy
     end

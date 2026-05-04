@@ -20,6 +20,7 @@ class RubyBranchCoverage
     file_elements.size.positive?
   end
 
+  
   private
 
   def extract_file_elements_using_parallelism_args(data_hash, parallelism_count, parallelism_processors)

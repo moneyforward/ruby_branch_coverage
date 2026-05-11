@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
-      - uses: ruby/setup-ruby@v1
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+      - uses: ruby/setup-ruby@c4e5b1316158f92e3d49443a9d58b31d25ac0f8f # v1.306.0
       - name: rubocop
-        uses: reviewdog/action-rubocop@v2
+        uses: reviewdog/action-rubocop@b6d5e953a5fc0bf3ab65254e77730ea2174d6d6d # v2.22.0
         with:
           rubocop_version: gemfile
           rubocop_extensions: rubocop-rspec:gemfile rubocop-checkstyle_formatter:gemfile rubocop-thread_safety:gemfile
@@ -28,11 +28,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@c4e5b1316158f92e3d49443a9d58b31d25ac0f8f # v1.306.0
       - name: brakeman
-        uses: reviewdog/action-brakeman@v2
+        uses: reviewdog/action-brakeman@5083efd49634e26645a0736681b618ccc3fb7f14 # v2.19.2
         with:
           brakeman_version: gemfile
           github_token: ${{ secrets.GITHUB_TOKEN }}

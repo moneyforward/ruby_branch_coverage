@@ -9,9 +9,8 @@ Gem::Specification.new do |s|
     s.email       = ['kuppusamy.suganya@moneyforward.co.jp']
     s.files = Dir["{config,lib}/**/*", "Rakefile"]
     s.homepage    =
-      'https://rubygems.pkg.github.com/moneyforward/ruby_branch_coverage'
+      'https://github.com/moneyforward/ruby_branch_coverage'
 
-    s.metadata["allowed_push_host"] = 'https://rubygems.pkg.github.com'
     s.add_development_dependency "rspec-rails"
     s.add_dependency "rails"
     s.add_dependency 'simplecov'

@@ -14,5 +14,5 @@ Gem::Specification.new do |s|
 
     s.add_development_dependency "rspec-rails"
     s.add_dependency "rails"
-    s.add_dependency 'simplecov'
+    s.add_dependency 'simplecov', '>= 1.0.0'
 end

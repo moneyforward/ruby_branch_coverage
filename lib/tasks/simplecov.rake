@@ -9,16 +9,16 @@ namespace :simplecov do
     SimpleCov.start 'rails' do
       enable_coverage :branch
 
-      add_filter '/spec/'
-      add_filter '/config/'
-      add_filter '/db/'
-      add_filter '/vendor/'
+      skip '/spec/'
+      skip '/config/'
+      skip '/db/'
+      skip '/vendor/'
 
-      add_group 'Decorators', 'app/decorators'
-      add_group 'Forms', 'app/forms'
-      add_group 'Services', 'app/services'
-      add_group 'ViewObjects', 'app/view_objects'
-      add_group 'Batches', 'app/batches'
+      group 'Decorators', 'app/decorators'
+      group 'Forms', 'app/forms'
+      group 'Services', 'app/services'
+      group 'ViewObjects', 'app/view_objects'
+      group 'Batches', 'app/batches'
 
       merge_timeout 3600
     end
